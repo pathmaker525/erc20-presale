@@ -1,0 +1,31 @@
+@import "../../styles/variable.scss";
+
+.footer {
+  width: 100%;
+  justify-content: center;
+  padding: 16px 0 25px;
+  border-top: 1px solid rgba($color: $gray, $alpha: 0.05);
+
+  &-wrapper {
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-logo {
+    justify-content: center;
+    margin-bottom: 24px;
+
+    & > img {
+      width: 64px;
+      height: 64px;
+      min-width: 64px;
+      min-height: 64px;
+    }
+  }
+
+  &-copyright {
+    color: $white;
+    font-size: 14px;
+    text-align: center;
+  }
+}

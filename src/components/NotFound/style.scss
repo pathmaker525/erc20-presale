@@ -1,0 +1,52 @@
+@import "../../styles/variable.scss";
+
+.notfound {
+  width: 100%;
+  min-height: calc(100vh - 221px);
+  justify-content: center;
+
+  &-decoration {
+    &-navbar {
+      position: absolute;
+      width: 480px;
+      height: auto;
+      right: -180px;
+      top: -360px;
+      z-index: 0;
+    }
+  }
+
+  &-wrapper {
+    justify-content: center;
+    align-items: center;
+
+    & > div {
+      & > h1 {
+        color: $gray;
+        font-size: 48px;
+        text-align: center;
+        text-transform: uppercase;
+
+        @media (max-width: 768px) {
+          font-size: 32px;
+        }
+      }
+
+      & > p {
+        font-size: 18px;
+        text-align: center;
+        color: $white;
+
+        @media (max-width: 768px) {
+          font-size: 16px;
+        }
+      }
+
+      & > a {
+        color: $green;
+        font-size: 16px;
+        text-align: center;
+      }
+    }
+  }
+}

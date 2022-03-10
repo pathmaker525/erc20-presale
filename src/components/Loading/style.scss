@@ -1,0 +1,54 @@
+@import "../../styles/variable.scss";
+
+.loading {
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+
+  &-wrapper {
+    align-items: center;
+    justify-content: center;
+
+    & > img {
+      width: 80px;
+      height: 80px;
+      -webkit-animation: hop 3s ease-in-out infinite; /* Safari */
+      animation: hop 3s ease-in-out infinite;
+
+      @media (max-width: 768px) {
+        width: 64px;
+        height: 64px;
+      }
+    }
+
+    & > span {
+      color: $white;
+      margin-top: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: 2px;
+
+      @media (max-width: 768px) {
+        font-size: 14px;
+      }
+    }
+
+    & > div {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 8px solid $black;
+      border-top: 8px solid $green;
+      -webkit-animation: spin 1s linear infinite; /* Safari */
+      animation: spin 1s linear infinite;
+
+      @media (max-width: 768px) {
+        width: 144px;
+        height: 144px;
+      }
+    }
+  }
+}

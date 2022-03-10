@@ -1,0 +1,283 @@
+@import "../../styles/variable.scss";
+
+.presale {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 148px);
+  padding-top: 88px;
+  align-items: center;
+
+  &-decoration {
+    &-navbar {
+      position: absolute;
+      width: 480px;
+      height: auto;
+      right: -180px;
+      top: -360px;
+      z-index: 0;
+    }
+
+    &-info {
+      position: absolute;
+      width: 160px;
+      height: auto;
+      left: -120px;
+      top: 16px;
+      z-index: 0;
+    }
+  }
+
+  &-wrapper {
+    justify-content: center;
+    padding: 48px 0 128px;
+
+    & > div {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  &-main {
+    width: 100%;
+    max-width: 560px;
+    padding: 24px;
+    align-items: center;
+
+    & > .divider {
+      position: relative;
+      justify-content: center;
+      width: 100%;
+      margin: 8px 0;
+
+      &::before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 2px;
+        border-radius: 2px;
+        background-color: $yellow;
+      }
+
+      & > p {
+        width: min-content;
+        background-color: $yellow;
+        white-space: nowrap;
+        margin: 0;
+        padding: 4px 8px;
+        font-size: 12px;
+        font-weight: 600;
+        border: 4px solid $black-dark;
+        margin-left: 32px;
+        z-index: 2;
+      }
+    }
+
+    &-block {
+      width: 100%;
+
+      & > p {
+        width: 100%;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0;
+        color: $gray;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 32px;
+
+        & > span:last-child {
+          color: $white;
+          font-size: 13px;
+          font-weight: 600;
+        }
+
+        & > a {
+          color: $white;
+          text-decoration: none;
+          font-size: 13px;
+          font-weight: 600;
+          word-break: break-all;
+          line-height: normal;
+        }
+      }
+
+      & > h3 {
+        align-self: center;
+        text-align: center;
+        color: $white;
+        text-transform: uppercase;
+      }
+    }
+
+    &-buy {
+      width: 100%;
+
+      & > span {
+        color: $green;
+        font-size: 13px;
+        font-weight: 600;
+        margin: 16px 0 8px;
+      }
+
+      & > label {
+        color: $gray;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      & > input {
+        margin-top: 4px;
+        border: none;
+        border-bottom: 1px solid $gray;
+        background-color: transparent;
+        padding: 4px;
+        font-size: 16px;
+        color: $white;
+      }
+    }
+
+    &-sale {
+      align-items: center;
+      justify-content: flex-end;
+      margin-bottom: 24px;
+    }
+
+    & > button {
+      width: 100%;
+      position: relative;
+      margin-top: 24px;
+      color: $white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+      border: none;
+      background-image: linear-gradient(135deg, $green, $blue);
+      box-shadow: inset 0 0 4px rgba($color: $green, $alpha: 0.4),
+        0 4px 8px rgba($color: $green, $alpha: 0.2);
+      transition: 0.3s;
+
+      & > svg {
+        max-width: 16px;
+        min-width: 16px;
+        height: auto;
+        height: intrinsic;
+        margin-right: 8px;
+      }
+
+      &:hover {
+        box-shadow: inset 0 0 4px rgba($color: $green, $alpha: 0.4),
+          0 4px 16px rgba($color: $green, $alpha: 0.2);
+      }
+
+      &:active {
+        box-shadow: inset 0 0 4px rgba($color: $green, $alpha: 0.4),
+          0 4px 8px rgba($color: $green, $alpha: 0.2);
+      }
+    }
+  }
+
+  &-active {
+    margin-top: 4px;
+    width: 100%;
+
+    & > span {
+      color: $white;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 4px 8px;
+      background-color: $green;
+    }
+  }
+
+  &-inactive {
+    margin-top: 4px;
+    width: 100%;
+
+    & > span {
+      color: $white;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 4px 8px;
+      background-color: $red;
+    }
+  }
+
+  &-queued {
+    margin-top: 4px;
+    width: 100%;
+
+    & > span {
+      color: $white;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 4px 8px;
+      background-color: $orange;
+    }
+  }
+
+  &-success {
+    margin-top: 4px;
+    width: 100%;
+
+    & > span {
+      color: $white;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 4px 8px;
+      background-color: $green-dark;
+    }
+  }
+
+  &-loading {
+    margin-top: 4px;
+    width: 100%;
+
+    & > span {
+      color: $white;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 4px 8px;
+      background-color: $gray;
+    }
+  }
+
+  &-timer {
+    margin-top: 24px;
+    grid-template: auto / 1fr 1fr 1fr 1fr;
+    grid-column-gap: 16px;
+
+    & > .counter {
+      align-items: center;
+
+      & > div {
+        padding: 12px;
+        align-items: center;
+        justify-content: center;
+
+        & > span {
+          width: 16px;
+          color: $white;
+          font-size: 24px;
+          font-weight: bold;
+          text-align: center;
+        }
+      }
+
+      & > span {
+        margin-top: 8px;
+        color: $gray;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
