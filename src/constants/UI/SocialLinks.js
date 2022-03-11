@@ -1,22 +1,11 @@
-import {
-  SiTwitter,
-  SiFacebook,
-  SiTelegram,
-  SiDiscord,
-  SiGmail,
-} from "react-icons/si"
+import { SiTwitter, SiTelegram, SiGithub } from "react-icons/si"
 
 const SocialLinks = {
-  Twitter: { link: "https://twitter.com/mappycoin", icon: <SiTwitter /> },
-  Facebook: {
-    link: "https://facebook.com/mappycoin",
-    icon: <SiFacebook />,
-  },
-  Telegram: { link: "https://t.me/MappyCoinChat", icon: <SiTelegram /> },
-  Discord: { link: "https://discord.gg/mappycoin", icon: <SiDiscord /> },
-  Mail: {
-    link: "mailto:support@mappycoin.com",
-    icon: <SiGmail />,
+  Twitter: { link: "https://twitter.com/safu_trendz", icon: <SiTwitter /> },
+  Telegram: { link: "https://t.me/safu_trendz", icon: <SiTelegram /> },
+  Github: {
+    link: "https://github.com/SaFuTrendz",
+    icon: <SiGithub />,
   },
 }
 
