@@ -5,6 +5,7 @@
   width: 100%;
   justify-content: center;
   z-index: 100;
+  border-bottom: 1px solid rgba(112, 112, 112, 0.05);
 
   &-wrapper {
     align-items: center;
@@ -23,8 +24,7 @@
 
     & > img {
       width: 100%;
-      height: auto;
-      height: intrinsic;
+      height: 100%;
     }
   }
 
