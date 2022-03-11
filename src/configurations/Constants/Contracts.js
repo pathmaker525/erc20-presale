@@ -5,9 +5,9 @@ const { BSC_MAINNET, BSC_TESTNET } = CHAIN_ID
 export const bscContracts = {
   PRESALE: {
     [BSC_MAINNET]: {
-      address: "0x25010cBc2f119c0fca8d1BdF1C4AA49Bb46A47AF",
+      address: "0xb981c94e9357ad62A516BEF738c52506EEE9c42C",
       explorerUrl:
-        "https://bscscan.com/address/0x25010cBc2f119c0fca8d1BdF1C4AA49Bb46A47AF#code",
+        "https://bscscan.com/address/0xb981c94e9357ad62a516bef738c52506eee9c42c",
     },
   },
   SAFUTRENDZ: {

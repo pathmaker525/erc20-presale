@@ -12,12 +12,12 @@ const connectors = [
     connectorId: ConnectorIds.Injected,
     priority: 1,
   },
-  {
-    title: "WalletConnect",
-    icon: <WalletConnect />,
-    connectorId: ConnectorIds.WalletConnect,
-    priority: 2,
-  },
+  // {
+  //   title: "WalletConnect",
+  //   icon: <WalletConnect />,
+  //   connectorId: ConnectorIds.WalletConnect,
+  //   priority: 2,
+  // },
 ]
 
 export { ConnectorIds }

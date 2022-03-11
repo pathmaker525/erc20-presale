@@ -32,7 +32,8 @@ const Presale = ({
   onWithdrawBaseHandler,
 }) => (
   <div className="presale flex flex-column">
-    <FadeIn className="presale-wrapper container flex">
+    <FadeIn className="presale-wrapper container flex flex-column">
+      <h1>SaFuTrendz Presale</h1>
       <div className="presale-main flex flex-column rounded blur-bg shadowed">
         <div className="divider flex flex-column">
           <p className="rounded-md">Token Information</p>
