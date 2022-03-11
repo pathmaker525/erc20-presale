@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useRoutes } from "react-router-dom"
 
+import Navbar from "components/Navbar"
 import Footer from "components/Footer"
 import NotFound from "components/NotFound"
 
@@ -18,6 +19,7 @@ const AppRouter = () => {
 
   return (
     <>
+      <Navbar />
       <UseScrollToTop>{routes}</UseScrollToTop>
       <Footer />
     </>

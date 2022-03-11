@@ -1,0 +1,72 @@
+@import "../../styles/variable.scss";
+
+.navbar {
+  position: absolute;
+  width: 100%;
+  justify-content: center;
+  z-index: 100;
+
+  &-wrapper {
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+  }
+
+  &-first {
+  }
+
+  &-logo {
+    width: 48px;
+    min-width: 48px;
+    height: 48px;
+    min-height: 48px;
+
+    & > img {
+      width: 100%;
+      height: auto;
+      height: intrinsic;
+    }
+  }
+
+  &-anchors {
+    margin-left: 128px;
+
+    @media (max-width: 768px) {
+      margin-left: 32px;
+    }
+
+    & > a {
+      height: 100%;
+      color: $white;
+      align-items: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        color: $yellow;
+      }
+    }
+  }
+
+  &-last {
+    & > button {
+      font-weight: 600;
+      padding: 8px 16px;
+      background-image: linear-gradient(135deg, $yellow, $orange);
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba($color: $orange, $alpha: 0.4);
+      transition: 0.3s;
+
+      &:hover {
+        box-shadow: 0 4px 16px rgba($color: $yellow, $alpha: 0.7);
+      }
+
+      &:active {
+        box-shadow: 0 4px 8px rgba($color: $yellow, $alpha: 0.7);
+      }
+    }
+  }
+}
