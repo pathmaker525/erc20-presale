@@ -228,11 +228,15 @@ library Address {
 
 abstract contract Context {
     function _msgSender() internal view virtual returns (address) {
-        return msg.sender;
+      return msg.sender;
     }
 
     function _msgData() internal view virtual returns (bytes calldata) {
-        return msg.data;
+      return msg.data;
+    }
+
+    function _msgValue() internal view virtual returns (uint256) {
+      return msg.value;
     }
 }
 
@@ -472,17 +476,17 @@ library SafeERC20 {
 library TransferHelper {
     function safeApprove(address token, address to, uint value) internal {
         (bool success, bytes memory data) = token.call(abi.encodeWithSelector(0x095ea7b3, to, value));
-        require(success && (data.length == 0 || abi.decode(data, (bool))), 'MAPPY_TransferHelper: APPROVE_FAILED');
+        require(success && (data.length == 0 || abi.decode(data, (bool))), "MultiSender: APPROVE_FAILED");
     }
 
     function safeTransfer(address token, address to, uint value) internal {
         (bool success, bytes memory data) = token.call(abi.encodeWithSelector(0xa9059cbb, to, value));
-        require(success && (data.length == 0 || abi.decode(data, (bool))), 'MAPPY_TransferHelper: TRANSFER_FAILED');
+        require(success && (data.length == 0 || abi.decode(data, (bool))), "MultiSender: TRANSFER_FAILED");
     }
 
     function safeTransferFrom(address token, address from, address to, uint value) internal {
         (bool success, bytes memory data) = token.call(abi.encodeWithSelector(0x23b872dd, from, to, value));
-        require(success && (data.length == 0 || abi.decode(data, (bool))), 'MAPPY_TransferHelper: TRANSFER_FROM_FAILED');
+        require(success && (data.length == 0 || abi.decode(data, (bool))), "MultiSender: TRANSFER_FROM_FAILED");
     }
     
     // sends ETH or an erc20 token
@@ -491,7 +495,7 @@ library TransferHelper {
             to.transfer(value);
         } else {
             (bool success, bytes memory data) = token.call(abi.encodeWithSelector(0xa9059cbb, to, value));
-            require(success && (data.length == 0 || abi.decode(data, (bool))), 'MAPPY_TransferHelper: TRANSFER_FAILED');
+            require(success && (data.length == 0 || abi.decode(data, (bool))), "MultiSender: TRANSFER_FAILED");
         }
     }
 }
@@ -501,13 +505,15 @@ contract MultiSender is Ownable {
   using SafeERC20 for IERC20;
 
   struct TokenInfo {
-      string name;
-      string symbol;
-      uint256 decimal;
+    string name;
+    string symbol;
+    uint256 decimal;
   }
 
   address public tokenAddressForDistribution;
   TokenInfo public tokenInfo;
+
+  uint256 private _serviceFee = 0.25 ether;
 
   address[] private _arrayInitiator;
   address[] private _receivers;
@@ -515,6 +521,15 @@ contract MultiSender is Ownable {
 
   constructor () {}
 
+  /** 
+   * @dev Send tokens to multiple address with amount passed in amounts_ array
+   * from the contract. Tokens need to be deposited to the contract to be sent
+   * by the contract.
+   *
+   * @param tokenAddress_ Token address to be sent
+   * @param receivers_ Address list to receive token specified by the address
+   * @param amounts_ Token amounts to be sent to each addresses
+   */
   function multiSendTokenFromContractAt(address tokenAddress_, address[] memory receivers_, uint256[] memory amounts_) public onlyOwner {
     require(tokenAddress_ != address(0), "MultiSender: Address can't be zero address");
     require(tokenAddress_ != address(this), "MultiSender: Can't set as self address");
@@ -530,11 +545,25 @@ contract MultiSender is Ownable {
     require(IERC20(tokenAddress_).balanceOf(address(this)) >= totalSupplyToDistribute, "MultiSender: Insufficient tokens to send");
 
     for (uint256 i = 0; i < receivers_.length; i++) {
-      TransferHelper.safeTransfer(address(tokenAddressForDistribution), receivers_[i], amounts_[i]);
+      TransferHelper.safeTransfer(address(tokenAddressForDistribution), address(receivers_[i]), amounts_[i]);
     }
   }
 
+  /** 
+   * @dev Send tokens to multiple address with amount passed in amounts_ array
+   * from the wallet linked to the contract. Tokens need to be deposited to th
+   * e contract to be sent by the contract.
+   *
+   * [===== IMPORTANT =====]
+   * Need to increase allowance between wallet and the contract from the token
+   * smart contract
+   *
+   * @param tokenAddress_ Token address to be sent
+   * @param receivers_ Address list to receive token specified by the address
+   * @param amounts_ Token amounts to be sent to each addresses
+   */
   function multiSendTokensFromWalletAt(address tokenAddress_, address[] memory receivers_, uint256[] memory amounts_) public {
+    require(_msgValue() > _serviceFee, "MultiSender: Must pay appropreate fee");
     require(tokenAddress_ != address(0), "MultiSender: Address can't be zero address");
     require(tokenAddress_ != address(this), "MultiSender: Can't set as self address");
     require(IERC20(tokenAddress_).balanceOf(_msgSender()) > 0, "MultiSender: Insufficient tokens to send");
@@ -549,7 +578,7 @@ contract MultiSender is Ownable {
     require(IERC20(tokenAddress_).balanceOf(_msgSender()) >= totalSupplyToDistribute, "MultiSender: Insufficient tokens to send");
 
     for (uint256 i = 0; i < receivers_.length; i++) {
-      TransferHelper.safeTransferFrom(address(tokenAddressForDistribution), _msgSender(), receivers_[i], amounts_[i]);
+      TransferHelper.safeTransferFrom(address(tokenAddressForDistribution), address(_msgSender()), address(receivers_[i]), amounts_[i]);
     }
   }
 
@@ -581,8 +610,7 @@ contract MultiSender is Ownable {
     require(_receivers.length > 0, "MultiSender: Don't have addresses to send tokens");
 
     for (uint256 i = 0; i < _receivers.length; i++) {
-      address receiver = _receivers[i];
-      TransferHelper.safeTransfer(address(tokenAddressForDistribution), receiver, multiSendingInfo[receiver]);
+      TransferHelper.safeTransfer(address(tokenAddressForDistribution), address(_receivers[i]), multiSendingInfo[receiver]);
     }
   }
 
@@ -599,6 +627,16 @@ contract MultiSender is Ownable {
 
   function getTokenSupplyForDistrubution () public view returns (uint256) {
     return IERC20(tokenAddressForDistribution).balanceOf(address(this));
+  }
+
+  function serviceFee() public view returns (uint256) {
+    return _serviceFee;
+  }
+
+  function setServiceFee(uint256 fee_) public onlyOwner {
+    require(fee_ < 1 ether, "MultiSender: Too greedy");
+
+    _serviceFee = fee_;
   }
 
   function reClaimCoin (address to_) public onlyOwner {
