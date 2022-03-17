@@ -19,6 +19,9 @@ const Navbar = () => {
             <a className="flex" href="https://safutrendz.com">
               Home
             </a>
+            <a className="flex" href="https://multisender.safutrendz.com">
+              MultiSender
+            </a>
           </div>
         </div>
         <div className="navbar-last">

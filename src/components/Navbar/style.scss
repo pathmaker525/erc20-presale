@@ -42,6 +42,12 @@
       text-decoration: none;
       cursor: pointer;
       transition: 0.3s;
+      margin: 0 36px 0 0;
+
+      @media (max-width: 768px) {
+        font-size: 14px;
+        margin: 0 24px 0 0;
+      }
 
       &:hover {
         color: $yellow;
