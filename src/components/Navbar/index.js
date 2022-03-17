@@ -12,13 +12,10 @@ const Navbar = () => {
     <div className="navbar flex">
       <div className="navbar-wrapper container flex">
         <div className="navbar-first flex">
-          <div className="navbar-logo">
+          <a className="navbar-logo" href="https://safutrendz.com">
             <img src={Logo} alt="logo" />
-          </div>
+          </a>
           <div className="navbar-anchors flex">
-            <a className="flex" href="https://safutrendz.com">
-              Home
-            </a>
             <a className="flex" href="https://multisender.safutrendz.com">
               MultiSender
             </a>
